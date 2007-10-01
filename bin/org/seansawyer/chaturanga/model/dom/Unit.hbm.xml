@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//END" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<union-subclass name="org.seansawyer.chaturanga.model.dom.Unit"
+		table="ch_unit"
+		extends="org.seansawyer.chaturanga.model.dom.BaseDomainObject">
+		
+		<!-- scalars -->
+		<property name="x" />
+		<property name="y" />
+		<property name="inPlay" type="boolean" />
+		<property name="promoted" type="boolean" />
+		
+		<!-- enums -->
+		<property name="color">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">org.seansawyer.chaturanga.model.dom.enumerations.Color</param>
+				<param name="type">4</param>
+			</type>
+		</property>
+		<property name="type">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">org.seansawyer.chaturanga.model.dom.enumerations.UnitType</param>
+				<param name="type">4</param>
+			</type>
+		</property>
+
+		<!-- composites -->
+		<many-to-one name="game"
+			class="org.seansawyer.chaturanga.model.dom.Game" column="id" />
+			
+	</union-subclass>
+</hibernate-mapping>

@@ -1,0 +1,139 @@
+<project default="dist" name="Chaturanga Build Script"> 
+	
+	<property file="custom.properties"/>
+	
+	<property name="build.dir" value="build"/>
+	<property name="build.classes.dir" value="${build.dir}/classes"/>
+	<property name="build.junit.dir" value="${build.dir}/junit"/>
+	<property name="dist.dir" value="dist"/>
+	<property name="javadoc.dir" value="javadocs"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="src.dir" value="src"/>
+	<property name="src.java.dir" value="${src.dir}/java"/>
+	<property name="src.buildnumber" value="${src.dir}/build.number"/>
+	<property name="src.tests.dir" value="${src.dir}/tests"/>
+	
+	<property name="jar" value="chaturanga"/>
+	
+	<property name="compile.target" value="1.5"/>
+	<property name="compile.debug" value="on"/>
+	
+	<path id="compile.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<path id="full.classpath">
+		<path refid="compile.classpath"/>
+		<pathelement location="${build.classes.dir}"/>
+	</path>
+	
+	<target name="banner">
+		<echo>Chaturanga build script</echo>
+	</target>
+	
+	<target name="clean" depends="banner">
+		<delete dir="${build.dir}"/>
+	</target>
+	
+	<target name="compile" depends="clean">
+		<mkdir dir="${build.classes.dir}"/>
+		<javac destdir="${build.classes.dir}" target="${compile.target}" debug="${compile.debug}" classpathref="compile.classpath">
+			<src path="${src.java.dir}">
+			</src>
+		</javac>
+	</target>
+	
+	<target name="compile-tests" depends="compile">
+		<javac destdir="${build.classes.dir}" target="${compile.target}" debug="${compile.debug}" classpathref="compile.classpath">
+			<src path="${src.tests.dir}">
+			</src>
+		</javac>
+	</target>
+	
+	<target name="tests" depends="compile-tests" description="Run the tests">
+		<mkdir dir="${build.junit.dir}"/>
+		<junit printsummary="yes" haltonfailure="no" failureproperty="tests.failed">
+			<classpath refid="full.classpath"/>
+			<formatter type="xml"/>
+			<batchtest fork="yes" todir="${build.junit.dir}">
+				<fileset dir="${build.classes.dir}">
+					<include name="**/Test*"/>
+					<exclude name="**/Test*$*"/>
+				</fileset>
+			</batchtest>
+		</junit>
+		<antcall target="display-test-results"/>
+		<fail if="tests.failed" message="Some tests failed"/>
+	</target>
+	
+	<target name="display-test-results" if="browser">
+		<junitreport todir="${build.junit.dir}">
+			<fileset dir="${build.junit.dir}">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report format="frames" todir="${build.junit.dir}"/>
+		</junitreport>
+		<exec executable="/usr/bin/open" spawn="true" os="Mac OS X">
+			<arg value="${browser}"/>
+			<arg value="${build.junit.dir}/index.html"/>
+		</exec>
+		<exec executable="${browser}" spawn="true" os="Microsoft Windows XP">
+			<arg value="${build.junit.dir}/index.html"/>
+		</exec>
+	</target>
+
+	<target name="buildnumber">
+		<buildnumber file="${src.buildnumber}"/>
+		<property file="${src.buildnumber}"/>
+	</target>
+	
+	<target name="javadoc" description="Create the javadocs">
+		<mkdir dir="${javadoc.dir}"/>
+		<javadoc
+			failonerror="true"
+			windowtitle="Chaturanga"
+			protected="no"	
+			private="no"
+			packagenames="com.hannonhill.publish.*"
+			classpathref="full.classpath"
+			sourcepath="${src.java.dir}" destdir="${javadoc.dir}">
+		</javadoc>
+		<antcall target="display-javadocs"/>
+	</target>
+	
+	<target name="display-javadocs" if="browser">
+		<exec executable="/usr/bin/open" spawn="true" os="Mac OS X">
+			<arg value="${browser}"/>
+			<arg value="${javadoc.dir}/index.html"/>
+		</exec>
+		<exec executable="${browser}" spawn="true" os="Microsoft Windows XP">
+			<arg value="${javadoc.dir}/index.html"/>
+		</exec>
+	</target>
+	
+	<target name="dist" depends="buildnumber, compile" description="Create the distributable jar">
+		<mkdir dir="${dist.dir}"/>
+		<delete>
+			<fileset dir="${dist.dir}">
+				<include name="*"/>
+			</fileset>
+		</delete>
+		<!-- create the distributable jar -->
+		<jar destfile="${dist.dir}/${jar}.jar">
+			<fileset dir="${build.classes.dir}">
+			</fileset>
+			<manifest>
+				<attribute name="Version" value="${build.number}"/>
+			</manifest>
+		</jar>
+		<!-- also, create the source as an archive -->
+		<zip 
+			destfile="${dist.dir}/${jar}-src.zip"
+			basedir="${src.java.dir}"
+			includes="**/*.java"
+		/>
+	</target>
+	
+</project>

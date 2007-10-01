@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<project name="Chaturanga" basedir="." default="usage">
+	
+	<!--
+		This is the Ant build script for Chaturanga.
+		
+		The contents of this file need to be merged with the old build script in the same directory,
+		which has nicer features, but has been replaced temporarily for testing the integration of
+		Spring and Hibernate, as well as deployment to Tomcat.
+	-->
+	
+	<property file="custom.properties" />
+
+	<property name="src.dir" value="src/java" />
+	<property name="web.dir" value="src/war" />
+	<property name="build.dir" value="${web.dir}/WEB-INF/classes" />
+	<property name="name" value="chaturanga" />
+
+	<path id="master-classpath">
+		<fileset dir="${web.dir}/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="${build.dir}" />
+	</path>
+
+	<target name="usage">
+		<echo message="" />
+		<echo message="${name} build file" />
+		<echo message="-----------------------------------" />
+		<echo message="" />
+		<echo message="Available targets are:" />
+		<echo message="" />
+		<echo message="build     --> Build the application" />
+		<echo message="deploy    --> Deploy application as directory" />
+		<echo message="deploywar --> Deploy application as a WAR file" />
+		<echo message="install   --> Install application in Tomcat" />
+		<echo message="reload    --> Reload application in Tomcat" />
+		<echo message="start     --> Start Tomcat application" />
+		<echo message="stop      --> Stop Tomcat application" />
+		<echo message="list      --> List Tomcat applications" />
+		<echo message="" />
+	</target>
+
+	<target name="clean" description="Clean output directories">
+		<delete>
+			<fileset dir="${build.dir}">
+				<include name="**/*.class" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="undeploy" description="Un-Deploy application">
+		<delete>
+			<fileset dir="${tomcat.deploy.dir}/${name}">
+				<include name="**/*.*" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="build" description="Compile main source tree java files">
+		<mkdir dir="${build.dir}" />
+		<javac destdir="${build.dir}" target="1.5" debug="true" deprecation="false" optimize="false" failonerror="true">
+			<src path="${src.dir}" />
+			<classpath refid="master-classpath" />
+		</javac>
+	</target>
+
+	<target name="deploy" depends="build" description="Deploy application">
+		<copy todir="${tomcat.deploy.dir}/${name}" preservelastmodified="true">
+			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="deploywar" depends="build" description="Deploy application as a WAR file">
+		<war destfile="${name}.war" webxml="${web.dir}/WEB-INF/web.xml">
+			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</war>
+		<copy todir="${tomcat.deploy.dir}" preservelastmodified="true">
+			<fileset dir=".">
+				<include name="*.war" />
+			</fileset>
+		</copy>
+	</target>
+</project>

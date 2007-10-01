@@ -1,0 +1,18 @@
+
+ABOUT THIS PROJECT
+------------------
+Chaturanga is an open-source chess server that leverages a highly-decoupled MVC architecture to provide
+support for a number of clients (telnet and web browser to start, with more to follow) as well as support
+for XML-RPC in order to facilitate quick development of new client applications.
+
+Chaturanga also provides email notifications, per-user RSS feeds and a framework for implementing custom
+notification modules which make it easy to create bots.
+
+Please visit the project website at http://code.google.com/p/chaturanga/ for more information and access
+to our Subversion repository.
+
+
+LICENSING
+---------
+Chaturanga is licensed under v3 of the GNU Public License. More information about this license can be
+found on the GNU Project's website at http://www.gnu.org/copyleft/gpl.html
