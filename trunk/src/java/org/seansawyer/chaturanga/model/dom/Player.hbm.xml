@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//END" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<union-subclass name="org.seansawyer.chaturanga.model.dom.Player"
+		table="ch_player"
+		extends="org.seansawyer.chaturanga.model.dom.BaseDomainObject">
+
+		<!-- scalars -->
+		<property name="username" />
+		<property name="email" />
+		<property name="fullName" />
+		<property name="password" />
+		<property name="enabled" type="boolean" />
+		<property name="dateCreated" type="timestamp"
+			column="dateCreated" />
+
+		<!-- composites -->
+		<set name="games" table="ch_game">
+			<key column="id" />
+			<many-to-many column="id"
+				class="org.seansawyer.chaturanga.model.dom.Game" />
+		</set>
+		
+	</union-subclass>
+</hibernate-mapping>

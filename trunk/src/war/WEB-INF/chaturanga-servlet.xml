@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for "springapp" DispatcherServlet.
+  -->
+
+<beans>
+    <bean id="chaturangaController" class="org.seansawyer.chaturanga.controller.ChaturangaController">
+    	<property name="playerService">
+            <ref bean="playerService"/>
+        </property>
+    </bean>
+    
+    <bean id="playerService" class="org.seansawyer.chaturanga.model.service.PlayerServiceImpl">
+        <property name="players">
+            <list>
+                <ref bean="player1"/>
+                <ref bean="player2"/>
+                <ref bean="player3"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="player1" class="org.seansawyer.chaturanga.model.dom.Player">
+        <property name="username"><value>d00dasaurus</value></property>
+        <property name="fullName"><value>Jack Johnson</value></property>
+    </bean>
+    
+    <bean id="player2" class="org.seansawyer.chaturanga.model.dom.Player">
+        <property name="username"><value>hypnotiq</value></property>
+        <property name="fullName"><value>Herman Sellers</value></property>
+    </bean>
+    
+    <bean id="player3" class="org.seansawyer.chaturanga.model.dom.Player">
+        <property name="username"><value>dookiebrain14</value></property>
+        <property name="fullName"><value>Seth Grumbles</value></property>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename"><value>application</value></property>
+    </bean>
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/hello.html">chaturangaController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
+        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+    </bean>
+</beans>

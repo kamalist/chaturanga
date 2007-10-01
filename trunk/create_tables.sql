@@ -1,0 +1,1 @@
+-- Will eventually house queries which will create tables for use by Hibernate
