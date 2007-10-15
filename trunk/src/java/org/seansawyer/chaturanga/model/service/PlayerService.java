@@ -22,8 +22,9 @@ import org.seansawyer.chaturanga.model.dom.Player;
 public interface PlayerService
 {
     /**
+     * Retrieve a non-null {@link List} of all {@link Player}s
      * 
-     * @return
+     * @return a {@link List} of {@link Player}s
      */
     public List<Player> getPlayers();
 }
