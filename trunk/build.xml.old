@@ -96,7 +96,7 @@
 			windowtitle="Chaturanga"
 			protected="no"	
 			private="no"
-			packagenames="com.hannonhill.publish.*"
+			packagenames="org.seansawyer.chaturanga.*"
 			classpathref="full.classpath"
 			sourcepath="${src.java.dir}" destdir="${javadoc.dir}">
 		</javadoc>
@@ -113,7 +113,7 @@
 		</exec>
 	</target>
 	
-	<target name="dist" depends="buildnumber, compile" description="Create the distributable jar">
+	<target name="dist" depends="buildnumber, compile" description="Construct distro jar">
 		<mkdir dir="${dist.dir}"/>
 		<delete>
 			<fileset dir="${dist.dir}">
