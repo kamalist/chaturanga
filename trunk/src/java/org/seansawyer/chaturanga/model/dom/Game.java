@@ -11,6 +11,8 @@ package org.seansawyer.chaturanga.model.dom;
 import java.util.Date;
 import java.util.Set;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.seansawyer.chaturanga.model.dom.enumerations.Color;
 
 /**
@@ -26,7 +28,7 @@ public class Game extends BaseDomainObject
     private Date startDate;
     private Date endDate;
     private String tagline;
-    
+
     private Color winner;
     private Color toMove;
     private Player black;
@@ -207,7 +209,7 @@ public class Game extends BaseDomainObject
     /**
      * @param firstMove the firstMove to set
      */
-    public  void setFirstMove(Move firstMove)
+    public void setFirstMove(Move firstMove)
     {
         this.firstMove = firstMove;
     }
@@ -234,5 +236,26 @@ public class Game extends BaseDomainObject
     public void setTagline(String tagline)
     {
         this.tagline = tagline;
+    }
+
+    /* (non-Javadoc)
+     * @see org.seansawyer.chaturanga.model.dom.BaseDomainObject#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        Game g = (Game) obj;
+        return new EqualsBuilder().appendSuper(super.equals(obj)).append(this.getEndDate(), g.getEndDate()).append(this.getStartDate(), g.getStartDate()).append(this.getTagline(), g.getTagline())
+                .append(this.getToMove(), g.getToMove()).append(this.getWinner(), g.getWinner()).append(this.isCheckmate(), g.isCheckmate()).isEquals();
+    }
+
+    /* (non-Javadoc)
+     * @see org.seansawyer.chaturanga.model.dom.BaseDomainObject#hashCode()
+     */
+    @Override
+    public int hashCode()
+    {
+        return new HashCodeBuilder().appendSuper(super.hashCode()).append(this.getEndDate()).append(this.getStartDate()).append(this.getTagline()).append(this.getToMove()).append(this.getWinner())
+                .append(this.isCheckmate()).toHashCode();
     }
 }
