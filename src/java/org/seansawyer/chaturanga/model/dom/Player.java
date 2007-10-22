@@ -11,6 +11,9 @@ package org.seansawyer.chaturanga.model.dom;
 import java.util.Date;
 import java.util.Set;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * Domain object representing a player in the {@link Game}
  * 
@@ -26,7 +29,7 @@ public class Player extends BaseDomainObject
     private String password;
     private boolean enabled;
     private Date dateCreated;
-    
+
     private Set<Game> games;
 
     /*
@@ -147,5 +150,26 @@ public class Player extends BaseDomainObject
     public void setDateCreated(Date dateCreated)
     {
         this.dateCreated = dateCreated;
+    }
+
+    /* (non-Javadoc)
+     * @see org.seansawyer.chaturanga.model.dom.BaseDomainObject#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        Player p = (Player) obj;
+        return new EqualsBuilder().appendSuper(super.equals(obj)).append(this.getDateCreated(), p.getDateCreated()).append(this.getEmail(), p.getEmail()).append(this.getFullName(), p.getFullName())
+                .append(this.getPassword(), p.getPassword()).append(this.getUsername(), p.getUsername()).append(this.isEnabled(), p.isEnabled()).isEquals();
+    }
+
+    /* (non-Javadoc)
+     * @see org.seansawyer.chaturanga.model.dom.BaseDomainObject#hashCode()
+     */
+    @Override
+    public int hashCode()
+    {
+        return new HashCodeBuilder().appendSuper(super.hashCode()).append(this.getDateCreated()).append(this.getEmail()).append(this.getFullName()).append(this.getPassword()).append(
+                this.getUsername()).append(this.isEnabled()).toHashCode();
     }
 }

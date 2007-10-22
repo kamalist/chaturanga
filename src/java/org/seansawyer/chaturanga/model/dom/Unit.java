@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dom;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.seansawyer.chaturanga.model.dom.enumerations.Color;
 import org.seansawyer.chaturanga.model.dom.enumerations.UnitType;
 
@@ -147,5 +149,26 @@ public class Unit extends BaseDomainObject
     public void setPromoted(boolean promoted)
     {
         this.promoted = promoted;
+    }
+
+    /* (non-Javadoc)
+     * @see org.seansawyer.chaturanga.model.dom.BaseDomainObject#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        Unit u = (Unit) obj;
+        return new EqualsBuilder().appendSuper(super.equals(obj)).append(this.getColor(), u.getColor()).append(this.getType(), u.getType()).append(this.getX(), u.getX()).append(this.getY(), u.getY())
+                .append(this.isInPlay(), u.isInPlay()).append(this.isPromoted(), u.isPromoted()).isEquals();
+    }
+
+    /* (non-Javadoc)
+     * @see org.seansawyer.chaturanga.model.dom.BaseDomainObject#hashCode()
+     */
+    @Override
+    public int hashCode()
+    {
+        return new HashCodeBuilder().appendSuper(super.hashCode()).append(this.getColor()).append(this.getType()).append(this.getX()).append(this.getY()).append(this.isInPlay()).append(
+                this.isPromoted()).toHashCode();
     }
 }

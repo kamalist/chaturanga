@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dom;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.seansawyer.chaturanga.model.dom.enumerations.Color;
 
 /**
@@ -25,7 +27,7 @@ public class Move extends BaseDomainObject
     private int endY;
     private Long date;
     private String comment;
-    
+
     private Color color;
     private Game game;
     private Move previous;
@@ -197,5 +199,26 @@ public class Move extends BaseDomainObject
     public void setPrevious(Move previous)
     {
         this.previous = previous;
+    }
+
+    /* (non-Javadoc)
+     * @see org.seansawyer.chaturanga.model.dom.BaseDomainObject#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        Move m = (Move) obj;
+        return new EqualsBuilder().appendSuper(super.equals(obj)).append(this.getColor(), m.getColor()).append(this.getComment(), m.getComment()).append(this.getDate(), m.getDate()).append(
+                this.getEndX(), m.getEndX()).append(this.getEndY(), m.getEndY()).append(this.getStartX(), m.getStartX()).append(this.getStartY(), m.getStartY()).isEquals();
+    }
+
+    /* (non-Javadoc)
+     * @see org.seansawyer.chaturanga.model.dom.BaseDomainObject#hashCode()
+     */
+    @Override
+    public int hashCode()
+    {
+        return new HashCodeBuilder().appendSuper(super.hashCode()).append(this.getColor()).append(this.getComment()).append(this.getDate()).append(this.getEndX()).append(this.getEndY()).append(
+                this.getStartX()).append(this.getStartY()).toHashCode();
     }
 }
