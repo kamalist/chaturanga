@@ -48,7 +48,7 @@ public abstract class BaseDomainObject
     public boolean equals(Object obj)
     {
         BaseDomainObject bdo = (BaseDomainObject) obj;
-        return new EqualsBuilder().appendSuper(super.equals(bdo)).append(this.getId(), bdo.getId()).isEquals();
+        return new EqualsBuilder().append(this.getId(), bdo.getId()).isEquals();
     }
     
     /* (non-Javadoc)
