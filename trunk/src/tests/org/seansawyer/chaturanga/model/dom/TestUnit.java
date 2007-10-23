@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dom;
 
+import org.seansawyer.chaturanga.model.dom.enumerations.Color;
+import org.seansawyer.chaturanga.model.dom.enumerations.UnitType;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -38,12 +40,42 @@ public class TestUnit extends DomainObjectTestCase
     }
     
     /**
-     * Tests that {@link Move#equals(Object)} functions as expected.
+     * Tests that {@link Unit#equals(Object)} functions as expected.
      */
     @Test(groups = { "unit", "dom", "fast" })
-    public void testEquals() {
+    public void testEquals() throws Exception
+    {
         // two different instances of a Unit with the same scalar data should be considered equal
-        Assert.assertNotSame(this.toCompare, this.unit);
-        Assert.assertEquals(this.toCompare, this.unit);
+        Assert.assertNotSame(unit, toCompare);
+        Assert.assertEquals(unit, toCompare);
+        
+        // changing each of the scalar properties should break equals
+        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_ID, "unit2");
+        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_COLOR, Color.WHITE);
+        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_INPLAY, !toCompare.isInPlay());
+        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_PROMOTED, !toCompare.isPromoted());
+        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_UNITTYPE, UnitType.PAWN);
+        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_X, toCompare.getX() + 1);
+        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_Y, toCompare.getY() + 1);
+    }
+    
+    /**
+     * Tests that {@link Unit#hashCode()} functions as expected.
+     * @throws Exception
+     */
+    @Test(groups = { "unit", "dom", "fast" })
+    public void testHashCode() throws Exception
+    {
+        // two different instances of a Unit with the same scalar data should have the same hash code
+        Assert.assertTrue(unit.hashCode() == toCompare.hashCode());
+        
+        // changing each of the scalar properties should break hash code equality
+        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_ID, "unit2");
+        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_COLOR, Color.WHITE);
+        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_INPLAY, !toCompare.isInPlay());
+        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_PROMOTED, !toCompare.isPromoted());
+        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_UNITTYPE, UnitType.PAWN);
+        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_X, toCompare.getX() + 1);
+        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_Y, toCompare.getY() + 1);
     }
 }

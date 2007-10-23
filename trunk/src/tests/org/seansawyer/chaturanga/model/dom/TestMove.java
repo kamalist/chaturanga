@@ -8,6 +8,7 @@
  */
 package org.seansawyer.chaturanga.model.dom;
 
+import org.seansawyer.chaturanga.model.dom.enumerations.Color;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -41,9 +42,41 @@ public class TestMove extends DomainObjectTestCase
      * Tests that {@link Move#equals(Object)} functions as expected.
      */
     @Test(groups = { "unit", "dom", "fast" })
-    public void testEquals() {
+    public void testEquals() throws Exception
+    {
         // two different instances of a Move with the same scalar data should be considered equal
-        Assert.assertNotSame(this.toCompare, this.move);
-        Assert.assertEquals(this.toCompare, this.move);
+        Assert.assertNotSame(move, toCompare);
+        Assert.assertEquals(move, toCompare);
+        
+        // changing each of the scalar properties should break equals
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_ID, "move2");
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_COLOR, Color.BLACK);
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_COMMENT, "??");
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_DATE, 123L);
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_ENDX, toCompare.getEndX() + 1);
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_ENDY, toCompare.getEndY() + 1);
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_STARTX, toCompare.getStartX() + 1);
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_STARTY, toCompare.getStartY() + 1);
+    }
+    
+    /**
+     * Tests that {@link Move#hashCode()} functions as expected.
+     * @throws Exception
+     */
+    @Test(groups = { "unit", "dom", "fast" })
+    public void testHashCode() throws Exception
+    {
+        // two different instances of a Move with the same scalar data should have the same hash code
+        Assert.assertTrue(move.hashCode() == toCompare.hashCode());
+        
+        // changing each of the scalar properties should break hash code equality
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_ID, "move2");
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_COLOR, Color.BLACK);
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_COMMENT, "??");
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_DATE, 123L);
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_ENDX, toCompare.getEndX() + 1);
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_ENDY, toCompare.getEndY() + 1);
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_STARTX, toCompare.getStartX() + 1);
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_STARTY, toCompare.getStartY() + 1);
     }
 }

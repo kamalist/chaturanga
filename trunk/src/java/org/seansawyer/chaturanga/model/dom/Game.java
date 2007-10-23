@@ -24,6 +24,13 @@ import org.seansawyer.chaturanga.model.dom.enumerations.Color;
  */
 public class Game extends BaseDomainObject
 {
+    public static final String PROPERTY_CHECKMATE = "checkmate";
+    public static final String PROPERTY_STARTDATE = "startDate";
+    public static final String PROPERTY_ENDDATE = "endDate";
+    public static final String PROPERTY_TAGLINE = "tagline";
+    public static final String PROPERTY_WINNER = "winner";
+    public static final String PROPERTY_TOMOVE = "toMove";
+    
     private boolean checkmate;
     private Date startDate;
     private Date endDate;

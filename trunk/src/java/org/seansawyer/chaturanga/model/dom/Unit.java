@@ -22,6 +22,13 @@ import org.seansawyer.chaturanga.model.dom.enumerations.UnitType;
  */
 public class Unit extends BaseDomainObject
 {
+    public static final String PROPERTY_INPLAY = "inPlay";
+    public static final String PROPERTY_PROMOTED = "promoted";
+    public static final String PROPERTY_X = "x";
+    public static final String PROPERTY_Y = "y";
+    public static final String PROPERTY_COLOR = "color";
+    public static final String PROPERTY_UNITTYPE = "type";
+    
     private boolean inPlay;
     private boolean promoted;
     private int x;

@@ -21,6 +21,14 @@ import org.seansawyer.chaturanga.model.dom.enumerations.Color;
  */
 public class Move extends BaseDomainObject
 {
+    public static final String PROPERTY_STARTX = "startX";
+    public static final String PROPERTY_STARTY = "startY";
+    public static final String PROPERTY_ENDX = "endX";
+    public static final String PROPERTY_ENDY = "endY";
+    public static final String PROPERTY_DATE = "date";
+    public static final String PROPERTY_COMMENT = "comment";
+    public static final String PROPERTY_COLOR = "color";
+    
     private int startX;
     private int startY;
     private int endX;

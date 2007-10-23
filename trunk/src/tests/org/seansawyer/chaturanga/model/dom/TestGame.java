@@ -8,6 +8,9 @@
  */
 package org.seansawyer.chaturanga.model.dom;
 
+import java.util.Date;
+
+import org.seansawyer.chaturanga.model.dom.enumerations.Color;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -39,11 +42,42 @@ public class TestGame extends DomainObjectTestCase
     
     /**
      * Tests that {@link Game#equals(Object)} functions as expected.
+     * @throws Exception
      */
     @Test(groups = { "unit", "dom", "fast" })
-    public void testEquals() {
+    public void testEquals() throws Exception
+    {
         // two different instances of a Game with the same scalar data should be considered equal
-        Assert.assertNotSame(this.toCompare, this.game);
-        Assert.assertEquals(this.toCompare, this.game);
+        Assert.assertNotSame(game, toCompare);
+        Assert.assertEquals(game, toCompare);
+        
+        // changing each of the scalar properties should break equals
+        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_ID, "game2");
+        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_CHECKMATE, !toCompare.isCheckmate());
+        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_ENDDATE, new Date());
+        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_STARTDATE, new Date());
+        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_TAGLINE, "A mere skirmish betwixt lowly novices");
+        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_TOMOVE, Color.BLACK);
+        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_WINNER, Color.WHITE);
+    }
+    
+    /**
+     * Tests that {@link Game#hashCode()} functions as expected.
+     * @throws Exception
+     */
+    @Test(groups = { "unit", "dom", "fast" })
+    public void testHashCode() throws Exception
+    {
+        // two different instances of a Game with the same scalar data should have the same hash code
+        Assert.assertTrue(game.hashCode() == toCompare.hashCode());
+        
+        // changing each of the scalar properties should break hash code equality
+        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_ID, "game2");
+        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_CHECKMATE, !toCompare.isCheckmate());
+        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_ENDDATE, new Date());
+        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_STARTDATE, new Date());
+        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_TAGLINE, "A mere skirmish betwixt lowly novices");
+        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_TOMOVE, Color.BLACK);
+        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_WINNER, Color.WHITE);
     }
 }

@@ -23,6 +23,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class Player extends BaseDomainObject
 {
+    public static final String PROPERTY_USERNAME = "username";
+    public static final String PROPERTY_EMAIL = "email";
+    public static final String PROPERTY_FULLNAME = "fullName";
+    public static final String PROPERTY_PASSWORD = "password";
+    public static final String PROPERTY_ENABLED = "enabled";
+    public static final String PROPERTY_DATECREATED = "dateCreated";
+    
     private String username;
     private String email;
     private String fullName;
