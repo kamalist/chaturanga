@@ -1,7 +1,10 @@
 /*
  * Created on Oct 22, 2007 by Sean Sawyer
  * 
- * Copyright(c) 2000-2007 Hannon Hill Corporation.  All rights reserved.
+ * This code is licensed under version 3 of the GNU Public License.
+ * 
+ * Please visit http://code.google.com/p/chaturanga/ for licensing
+ * and other information. 
  */
 package org.seansawyer.chaturanga.testng;
 
