@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dom;
 
+import java.util.Date;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -41,9 +43,39 @@ public class TestPlayer extends DomainObjectTestCase
      * Tests that {@link Player#equals(Object)} functions as expected.
      */
     @Test(groups = { "unit", "dom", "fast" })
-    public void testEquals() {
+    public void testEquals() throws Exception
+    {
         // two different instances of a Player with the same scalar data should be considered equal
-        Assert.assertNotSame(this.toCompare, this.player);
-        Assert.assertEquals(this.toCompare, this.player);
+        Assert.assertNotSame(toCompare, player);
+        Assert.assertEquals(toCompare, player);
+        
+        // changing each of the scalar properties should break equals
+        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_ID, "player2");
+        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_DATECREATED, new Date());
+        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_EMAIL, "another.player@chaturanga.org");
+        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_ENABLED, !toCompare.isEnabled());
+        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_FULLNAME, "Ikue Mori");
+        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_PASSWORD, "hexkitchen");
+        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_USERNAME, "ikuedna");
+    }
+    
+    /**
+     * Tests that {@link Player#hashCode()} functions as expected.
+     * @throws Exception
+     */
+    @Test(groups = { "unit", "dom", "fast" })
+    public void testHashCode() throws Exception
+    {
+        // two different instances of a Player with the same scalar data should have the same hash code
+        Assert.assertTrue(player.hashCode() == toCompare.hashCode());
+        
+        // changing each of the scalar properties should break hash code equality
+        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_ID, "player2");
+        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_DATECREATED, new Date());
+        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_EMAIL, "another.player@chaturanga.org");
+        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_ENABLED, !toCompare.isEnabled());
+        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_FULLNAME, "Ikue Mori");
+        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_PASSWORD, "hexkitchen");
+        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_USERNAME, "ikuedna");
     }
 }

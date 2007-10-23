@@ -20,6 +20,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public abstract class BaseDomainObject
 {
+    public static final String PROPERTY_ID = "id";
+    
     /** Primary key of entity */
     protected String id;
 
@@ -57,6 +59,11 @@ public abstract class BaseDomainObject
     @Override
     public int hashCode()
     {
-        return new HashCodeBuilder().appendSuper(super.hashCode()).append(this.getId()).toHashCode();
+        HashCodeBuilder builder = new HashCodeBuilder();
+        if (this.getId() == null)
+        {
+            return builder.appendSuper(super.hashCode()).toHashCode();
+        }
+        return new HashCodeBuilder().append(this.getId()).toHashCode();
     }
 }
