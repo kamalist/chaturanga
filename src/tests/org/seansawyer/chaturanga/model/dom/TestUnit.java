@@ -1,5 +1,5 @@
 /*
- * Created on Oct 22, 2007 by Sean Sawyer
+ * Created on Oct 23, 2007 by Sean Sawyer
  * 
  * This code is licensed under version 3 of the GNU Public License.
  * 
@@ -13,16 +13,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
- * Tests that the functionality of non-accessor methods in {@link Game}
+ * Tests that the functionality of non-accessor methods in {@link Unit}
  * function as expected.
  * 
  * @author  Sean Sawyer
  * @version $Id: $
  * @since   0.1
  */
-public class TestGame extends DomainObjectTestCase
+public class TestUnit extends DomainObjectTestCase
 {
-    private Game toCompare;
+    private Unit toCompare;
     
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dom.DomainObjectTestCase#setUp()
@@ -33,17 +33,17 @@ public class TestGame extends DomainObjectTestCase
     {
         super.setUp();
         
-        this.toCompare = new Game();
-        populateGame(this.toCompare);
+        this.toCompare = new Unit();
+        populateUnit(this.toCompare);
     }
     
     /**
-     * Tests that {@link Game#equals(Object)} functions as expected.
+     * Tests that {@link Move#equals(Object)} functions as expected.
      */
     @Test(groups = { "unit", "dom", "fast" })
     public void testEquals() {
-        // two different instances of a Game with the same scalar data should be considered equal
-        Assert.assertNotSame(this.toCompare, this.game);
-        Assert.assertEquals(this.toCompare, this.game);
+        // two different instances of a Unit with the same scalar data should be considered equal
+        Assert.assertNotSame(this.toCompare, this.unit);
+        Assert.assertEquals(this.toCompare, this.unit);
     }
 }
