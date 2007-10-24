@@ -25,6 +25,12 @@ public interface BaseDAO<CDO extends BaseDomainObject> extends ChaturangaDAO
      * @return
      */
     public CDO get(String id);
+    
+    /**
+     * 
+     * @return
+     */
+    public CDO getAll();
 
     /**
      * 

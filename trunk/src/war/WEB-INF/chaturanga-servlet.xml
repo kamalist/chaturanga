@@ -4,8 +4,43 @@
 <!--
   - Application context definition for "springapp" DispatcherServlet.
   -->
-
 <beans>
+  	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+  		<property name="driverClassName">
+  			<value>com.mysql.jdbc.Driver</value>
+  		</property>
+  		<property name="url">
+  			<value>jdbc:mysql://127.0.0.1:3306/chaturanga</value>
+  		</property>
+  		<property name="username">
+  			<value>root</value>
+  		</property>
+  		<property name="password">
+			<value></value>
+  		</property>
+  	</bean>
+  	
+  	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+  		<property name="dataSource">
+  			<ref local="dataSource"/>
+  		</property>
+  		<property name="mappingResources">
+  			<list>
+  				<value>BaseDomainObject.hbm.xml</value>
+  				<value>Game.hbm.xml</value>
+  				<value>Move.hbm.xml</value>
+  				<value>Player.hbm.xml</value>
+  				<value>Unit.hbm.xml</value>
+  			</list>
+  		</property>
+  		<property name="hibernateProperties">
+  			<props>
+  				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+  				<prop key="hibernate.max_fetch_depth">3</prop>
+  			</props>
+  		</property>
+  	</bean>
+
     <bean id="chaturangaController" class="org.seansawyer.chaturanga.controller.ChaturangaController">
     	<property name="playerService">
             <ref bean="playerService"/>
