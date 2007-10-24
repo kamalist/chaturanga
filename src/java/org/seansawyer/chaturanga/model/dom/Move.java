@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dom;
 
+import java.util.Date;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.seansawyer.chaturanga.model.dom.enumerations.Color;
@@ -33,7 +35,7 @@ public class Move extends BaseDomainObject
     private int startY;
     private int endX;
     private int endY;
-    private Long date;
+    private Date date;
     private String comment;
 
     private Color color;
@@ -56,7 +58,7 @@ public class Move extends BaseDomainObject
     /**
      * @return Returns the date.
      */
-    public final Long getDate()
+    public final Date getDate()
     {
         return date;
     }
@@ -140,7 +142,7 @@ public class Move extends BaseDomainObject
     /**
      * @param date the date to set
      */
-    public void setDate(Long date)
+    public void setDate(Date date)
     {
         this.date = date;
     }

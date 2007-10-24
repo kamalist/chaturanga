@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dom;
 
+import java.util.Date;
+
 import org.seansawyer.chaturanga.model.dom.enumerations.Color;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -52,7 +54,7 @@ public class TestMove extends DomainObjectTestCase
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_ID, "move2");
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_COLOR, Color.BLACK);
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_COMMENT, "??");
-        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_DATE, 123L);
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_DATE, new Date());
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_ENDX, toCompare.getEndX() + 1);
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_ENDY, toCompare.getEndY() + 1);
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_STARTX, toCompare.getStartX() + 1);
@@ -73,7 +75,7 @@ public class TestMove extends DomainObjectTestCase
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_ID, "move2");
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_COLOR, Color.BLACK);
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_COMMENT, "??");
-        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_DATE, 123L);
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_DATE,  new Date());
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_ENDX, toCompare.getEndX() + 1);
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_ENDY, toCompare.getEndY() + 1);
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_STARTX, toCompare.getStartX() + 1);

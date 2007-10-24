@@ -77,7 +77,7 @@ public abstract class DomainObjectTestCase extends ChaturangaTestCase
     {
         move.setColor(Color.WHITE);
         move.setComment("!!");
-        move.setDate(0L);
+        move.setDate(new Date(0L));
         move.setEndX(0);
         move.setEndY(0);
         move.setId("move1");
