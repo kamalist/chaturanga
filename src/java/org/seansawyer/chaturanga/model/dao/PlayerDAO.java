@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dao;
 
+import org.seansawyer.chaturanga.model.dom.Player;
+
 /**
  * Interface describing data access methods for persisted {@link Player} domain objects
  * 
@@ -15,7 +17,7 @@ package org.seansawyer.chaturanga.model.dao;
  * @version $Id$
  * @since   0.1
  */
-public interface PlayerDAO extends BaseDAO
+public interface PlayerDAO extends BaseDAO<Player>
 {
 
 }

@@ -50,7 +50,7 @@ public class TestPlayer extends DomainObjectTestCase
         Assert.assertEquals(toCompare, player);
         
         // changing each of the scalar properties should break equals
-        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_ID, "player2");
+        verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_ID, toCompare.getId() + 1);
         verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_DATECREATED, new Date());
         verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_EMAIL, "another.player@chaturanga.org");
         verifyPropertyOnEquals(player, toCompare, Player.PROPERTY_ENABLED, !toCompare.isEnabled());
@@ -70,7 +70,7 @@ public class TestPlayer extends DomainObjectTestCase
         Assert.assertTrue(player.hashCode() == toCompare.hashCode());
         
         // changing each of the scalar properties should break hash code equality
-        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_ID, "player2");
+        verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_ID, toCompare.getId() + 1);
         verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_DATECREATED, new Date());
         verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_EMAIL, "another.player@chaturanga.org");
         verifyPropertyOnHashCode(player, toCompare, Player.PROPERTY_ENABLED, !toCompare.isEnabled());

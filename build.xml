@@ -13,14 +13,20 @@
 
 	<property name="src.dir" value="src/java" />
 	<property name="web.dir" value="src/war" />
-	<property name="build.dir" value="${web.dir}/WEB-INF/classes" />
+	<property name="lib.dir" value="lib" />
+	<property name="javadoc.dir" value="javadoc"/>
+	
+	<property name="build.dir" value="build"/>
+	<property name="build.classes.dir" value="${build.dir}/WEB-INF/classes" />
+	<property name="build.lib.dir" value="${build.dir}/WEB-INF/lib" />
+	
 	<property name="name" value="chaturanga" />
 
 	<path id="master-classpath">
-		<fileset dir="${web.dir}/WEB-INF/lib">
-			<include name="*.jar" />
+		<fileset dir="${lib.dir}">
+			<include name="*.jar"/>
 		</fileset>
-		<pathelement path="${build.dir}" />
+		<pathelement path="${build.classes.dir}" />
 	</path>
 
 	<target name="usage">
@@ -42,11 +48,7 @@
 	</target>
 
 	<target name="clean" description="Clean output directories">
-		<delete>
-			<fileset dir="${build.dir}">
-				<include name="**/*.class" />
-			</fileset>
-		</delete>
+		<delete dir="${build.dir}" />
 	</target>
 
 	<target name="undeploy" description="Un-Deploy application">
@@ -58,31 +60,87 @@
 	</target>
 
 	<target name="build" description="Compile main source tree java files">
-		<mkdir dir="${build.dir}" />
-		<javac destdir="${build.dir}" target="1.5" debug="true" deprecation="false" optimize="false" failonerror="true">
+		<mkdir dir="${build.classes.dir}" />
+		<javac destdir="${build.classes.dir}" target="1.5" debug="true" deprecation="false" optimize="false" failonerror="true">
 			<src path="${src.dir}" />
 			<classpath refid="master-classpath" />
 		</javac>
 	</target>
 
 	<target name="deploy" depends="build" description="Deploy application">
-		<copy todir="${tomcat.deploy.dir}/${name}" preservelastmodified="true">
+		<!-- copy webapp source files from src/war to build directory -->
+		<copy todir="${build.dir}" preservelastmodified="true">
 			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<!-- copy libs from lib to WEB-INF/lib -->
+		<mkdir dir="${build.lib.dir}" />
+		<copy todir="${build.lib.dir}" preservelastmodified="true">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+		<!-- copy webapp directory to tomcat deployment directory -->
+		<copy todir="${tomcat.deploy.dir}/${name}" preservelastmodified="true">
+			<fileset dir="${build.dir}">
 				<include name="**/*.*" />
 			</fileset>
 		</copy>
 	</target>
 
 	<target name="deploywar" depends="build" description="Deploy application as a WAR file">
-		<war destfile="${name}.war" webxml="${web.dir}/WEB-INF/web.xml">
+		<!-- copy webapp source files from src/war to build directory -->
+		<copy todir="${build.dir}" preservelastmodified="true">
 			<fileset dir="${web.dir}">
 				<include name="**/*.*" />
 			</fileset>
+		</copy>
+		<!-- copy libs from lib to WEB-INF/lib -->
+		<copy todir="${build.lib.dir}" preservelastmodified="true">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+		<!-- create the WAR file -->
+		<war destfile="${name}.war" webxml="${build.dir}/WEB-INF/web.xml">
+			<fileset dir="${build.dir}">
+				<include name="**/*.*" />
+			</fileset>
 		</war>
+		<!-- copy WAR to deployment directory -->
 		<copy todir="${tomcat.deploy.dir}" preservelastmodified="true">
 			<fileset dir=".">
 				<include name="*.war" />
 			</fileset>
 		</copy>
+	</target>
+	
+	<target name="javadoc" description="Create application javadocs">
+		<mkdir dir="${javadoc.dir}"/>
+		<javadoc
+			failonerror="true"
+			windowtitle="Chaturanga"
+			protected="no"	
+			private="no"
+			packagenames="org.seansawyer.chaturanga.*"
+			classpathref="master-classpath"
+			sourcepath="${src.dir}" destdir="${javadoc.dir}">
+		</javadoc>
+		<antcall target="display-javadocs"/>
+	</target>
+
+	<target name="display-javadocs" if="browser">
+		<echo>Opening JavaDocs</echo>
+		<exec executable="/usr/bin/open" spawn="true" os="Mac OS X">
+			<arg value="${browser}" />
+			<arg value="${javadoc.dir}/index.html"/>
+		</exec>
+		<exec executable="${browser}" spawn="true" os="Microsoft Windows XP">
+			<arg value="${javadoc.dir}/index.html"/>
+		</exec>
+		<exec executable="${browser}" spawn="true" os="Linux">
+			<arg value="${javadoc.dir}/index.html"/>
+		</exec>
 	</target>
 </project>

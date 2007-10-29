@@ -51,7 +51,7 @@ public class TestMove extends DomainObjectTestCase
         Assert.assertEquals(move, toCompare);
         
         // changing each of the scalar properties should break equals
-        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_ID, "move2");
+        verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_ID, toCompare.getId() + 1);
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_COLOR, Color.BLACK);
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_COMMENT, "??");
         verifyPropertyOnEquals(move, toCompare, Move.PROPERTY_DATE, new Date());
@@ -72,7 +72,7 @@ public class TestMove extends DomainObjectTestCase
         Assert.assertTrue(move.hashCode() == toCompare.hashCode());
         
         // changing each of the scalar properties should break hash code equality
-        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_ID, "move2");
+        verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_ID, toCompare.getId() + 1);
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_COLOR, Color.BLACK);
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_COMMENT, "??");
         verifyPropertyOnHashCode(move, toCompare, Move.PROPERTY_DATE,  new Date());

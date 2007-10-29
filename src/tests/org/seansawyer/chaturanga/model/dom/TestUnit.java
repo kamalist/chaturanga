@@ -50,7 +50,7 @@ public class TestUnit extends DomainObjectTestCase
         Assert.assertEquals(unit, toCompare);
         
         // changing each of the scalar properties should break equals
-        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_ID, "unit2");
+        verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_ID, toCompare.getId() + 1);
         verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_COLOR, Color.WHITE);
         verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_INPLAY, !toCompare.isInPlay());
         verifyPropertyOnEquals(unit, toCompare, Unit.PROPERTY_PROMOTED, !toCompare.isPromoted());
@@ -70,7 +70,7 @@ public class TestUnit extends DomainObjectTestCase
         Assert.assertTrue(unit.hashCode() == toCompare.hashCode());
         
         // changing each of the scalar properties should break hash code equality
-        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_ID, "unit2");
+        verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_ID, toCompare.getId() + 1);
         verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_COLOR, Color.WHITE);
         verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_INPLAY, !toCompare.isInPlay());
         verifyPropertyOnHashCode(unit, toCompare, Unit.PROPERTY_PROMOTED, !toCompare.isPromoted());

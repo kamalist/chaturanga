@@ -40,6 +40,30 @@
   			</props>
   		</property>
   	</bean>
+  	
+  	<bean id="baseDAO" class="org.seansawyer.chaturanga.model.dao.hibernate.HibernateBaseDAO" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<bean id="gameDAO" class="org.seansawyer.chaturanga.model.dao.hibernate.HibernateGameDAO" parent="baseDAO" />
+	<bean id="moveDAO" class="org.seansawyer.chaturanga.model.dao.hibernate.HibernateMoveDAO" parent="baseDAO" />
+	<bean id="playerDAO" class="org.seansawyer.chaturanga.model.dao.hibernate.HibernatePlayerDAO" parent="baseDAO" />
+	<bean id="unitDAO" class="org.seansawyer.chaturanga.model.dao.hibernate.HibernateUnitDAO" parent="baseDAO" />
+	
+	<bean id="daoProvider" class="org.seansawyer.chaturanga.model.dao.DAOProviderImpl">
+		<property name="gameDAO">
+			<ref local="gameDAO"/>
+		</property>
+		<property name="moveDAO">
+			<ref local="moveDAO"/>
+		</property>
+		<property name="playerDAO">
+			<ref local="playerDAO"/>
+		</property>
+		<property name="unitDAO">
+			<ref local="unitDAO"/>
+		</property>
+	</bean>
 
     <bean id="chaturangaController" class="org.seansawyer.chaturanga.controller.ChaturangaController">
     	<property name="playerService">

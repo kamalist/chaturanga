@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dao;
 
+import org.seansawyer.chaturanga.model.dom.Game;
+
 /**
  * Interface describing data access methods for persisted {@link Game} domain objects
  * 
@@ -15,7 +17,7 @@ package org.seansawyer.chaturanga.model.dao;
  * @version $Id$
  * @since   0.1
  */
-public interface GameDAO extends BaseDAO
+public interface GameDAO extends BaseDAO<Game>
 {
 
 }

@@ -23,12 +23,12 @@ public abstract class BaseDomainObject
     public static final String PROPERTY_ID = "id";
     
     /** Primary key of entity */
-    protected String id;
+    protected Long id;
 
     /**
      * @return Returns the id.
      */
-    public String getId()
+    public Long getId()
     {
         return id;
     }
@@ -38,7 +38,7 @@ public abstract class BaseDomainObject
      * 
      * @param id the id to set
      */
-    public void setId(String id)
+    public void setId(Long id)
     {
         this.id = id;
     }

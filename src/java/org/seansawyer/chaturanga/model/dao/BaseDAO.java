@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dao;
 
+import java.util.List;
+
 import org.seansawyer.chaturanga.model.dom.BaseDomainObject;
 
 /**
@@ -24,13 +26,13 @@ public interface BaseDAO<CDO extends BaseDomainObject> extends ChaturangaDAO
      * @param id
      * @return
      */
-    public CDO get(String id);
+    public CDO get(Long id);
     
     /**
      * 
      * @return
      */
-    public CDO getAll();
+    public List<CDO> getAll();
 
     /**
      * 
@@ -44,5 +46,5 @@ public interface BaseDAO<CDO extends BaseDomainObject> extends ChaturangaDAO
      * @param id
      * @throws Exception
      */
-    public void delete(String id) throws Exception;
+    public void delete(Long id) throws Exception;
 }
