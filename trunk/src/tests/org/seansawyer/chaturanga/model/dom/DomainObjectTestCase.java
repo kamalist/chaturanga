@@ -14,7 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.seansawyer.chaturanga.model.dom.enumerations.Color;
 import org.seansawyer.chaturanga.model.dom.enumerations.UnitType;
-import org.seansawyer.chaturanga.testng.ChaturangaTestCase;
+import org.seansawyer.chaturanga.testng.ChaturangaUnitTestCase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 
@@ -26,7 +26,7 @@ import org.testng.annotations.BeforeClass;
  * @version $Id: $
  * @since   0.1
  */
-public abstract class DomainObjectTestCase extends ChaturangaTestCase
+public abstract class DomainObjectTestCase extends ChaturangaUnitTestCase
 {
     protected Game game;
     protected Move move;
@@ -63,7 +63,7 @@ public abstract class DomainObjectTestCase extends ChaturangaTestCase
     {
         game.setCheckmate(false);
         game.setEndDate(new Date(0L));
-        game.setId("game1");
+        game.setId(1L);
         game.setStartDate(new Date(0L));
         game.setTagline("A classic game between two grand masters");
         game.setToMove(Color.WHITE);
@@ -80,7 +80,7 @@ public abstract class DomainObjectTestCase extends ChaturangaTestCase
         move.setDate(new Date(0L));
         move.setEndX(0);
         move.setEndY(0);
-        move.setId("move1");
+        move.setId(1L);
         move.setStartX(1);
         move.setStartY(1);
     }
@@ -94,7 +94,7 @@ public abstract class DomainObjectTestCase extends ChaturangaTestCase
         player.setEmail("player@chaturanga.org");
         player.setEnabled(true);
         player.setFullName("Arto Lindsay");
-        player.setId("player1");
+        player.setId(1L);
         player.setPassword("noonchill");
         player.setUsername("artodna");
     }
@@ -105,7 +105,7 @@ public abstract class DomainObjectTestCase extends ChaturangaTestCase
     protected void populateUnit(Unit unit)
     {
         unit.setColor(Color.BLACK);
-        unit.setId("move1");
+        unit.setId(1L);
         unit.setInPlay(true);
         unit.setPromoted(false);
         unit.setType(UnitType.QUEEN);

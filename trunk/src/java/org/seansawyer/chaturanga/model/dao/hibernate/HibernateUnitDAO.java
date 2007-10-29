@@ -8,10 +8,13 @@
  */
 package org.seansawyer.chaturanga.model.dao.hibernate;
 
+import java.util.List;
+
 import org.seansawyer.chaturanga.model.dao.UnitDAO;
-import org.seansawyer.chaturanga.model.dom.BaseDomainObject;
+import org.seansawyer.chaturanga.model.dom.Unit;
 
 /**
+ * Implementation of {@link UnitDAO} using Hibernate
  * 
  * @author  Sean Sawyer
  * @version $Id: $
@@ -23,37 +26,36 @@ public class HibernateUnitDAO extends HibernateBaseDAO implements UnitDAO
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#delete(java.lang.String)
      */
-    public void delete(String id) throws Exception
+    public void delete(Long id) throws Exception
     {
-        // TODO Auto-generated method stub
-
+        Unit toDelete = new Unit();
+        toDelete.setId(id);
+        getHibernateTemplate().delete(toDelete);
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#get(java.lang.String)
      */
-    public BaseDomainObject get(String id)
+    public Unit get(Long id)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return (Unit) getHibernateTemplate().load(Unit.class, id);
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#getAll()
      */
-    public BaseDomainObject getAll()
+    @SuppressWarnings("unchecked")
+    public List<Unit> getAll()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return (List<Unit>) getHibernateTemplate().find("from Unit");
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#save(org.seansawyer.chaturanga.model.dom.BaseDomainObject)
      */
-    public void save(BaseDomainObject cdo) throws Exception
+    public void save(Unit cdo) throws Exception
     {
-        // TODO Auto-generated method stub
-
+        getHibernateTemplate().saveOrUpdate(cdo);
     }
 
 }

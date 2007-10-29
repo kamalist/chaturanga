@@ -8,10 +8,13 @@
  */
 package org.seansawyer.chaturanga.model.dao.hibernate;
 
+import java.util.List;
+
 import org.seansawyer.chaturanga.model.dao.PlayerDAO;
-import org.seansawyer.chaturanga.model.dom.BaseDomainObject;
+import org.seansawyer.chaturanga.model.dom.Player;
 
 /**
+ * Implementation of {@link PlayerDAO} using Hibernate
  * 
  * @author  Sean Sawyer
  * @version $Id: $
@@ -23,37 +26,36 @@ public class HibernatePlayerDAO extends HibernateBaseDAO implements PlayerDAO
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#delete(java.lang.String)
      */
-    public void delete(String id) throws Exception
+    public void delete(Long id) throws Exception
     {
-        // TODO Auto-generated method stub
-
+        Player toDelete = new Player();
+        toDelete.setId(id);
+        getHibernateTemplate().delete(toDelete);
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#get(java.lang.String)
      */
-    public BaseDomainObject get(String id)
+    public Player get(Long id)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return (Player) getHibernateTemplate().load(Player.class, id);
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#getAll()
      */
-    public BaseDomainObject getAll()
+    @SuppressWarnings("unchecked")
+    public List<Player> getAll()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return (List<Player>) getHibernateTemplate().find("from Player");
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#save(org.seansawyer.chaturanga.model.dom.BaseDomainObject)
      */
-    public void save(BaseDomainObject cdo) throws Exception
+    public void save(Player cdo) throws Exception
     {
-        // TODO Auto-generated method stub
-
+        getHibernateTemplate().saveOrUpdate(cdo);
     }
 
 }

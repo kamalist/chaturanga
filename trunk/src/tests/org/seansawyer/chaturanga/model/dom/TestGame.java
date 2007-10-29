@@ -52,7 +52,7 @@ public class TestGame extends DomainObjectTestCase
         Assert.assertEquals(game, toCompare);
         
         // changing each of the scalar properties should break equals
-        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_ID, "game2");
+        verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_ID, toCompare.getId() + 1);
         verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_CHECKMATE, !toCompare.isCheckmate());
         verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_ENDDATE, new Date());
         verifyPropertyOnEquals(game, toCompare, Game.PROPERTY_STARTDATE, new Date());
@@ -72,7 +72,7 @@ public class TestGame extends DomainObjectTestCase
         Assert.assertTrue(game.hashCode() == toCompare.hashCode());
         
         // changing each of the scalar properties should break hash code equality
-        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_ID, "game2");
+        verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_ID, toCompare.getId() + 1);
         verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_CHECKMATE, !toCompare.isCheckmate());
         verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_ENDDATE, new Date());
         verifyPropertyOnHashCode(game, toCompare, Game.PROPERTY_STARTDATE, new Date());

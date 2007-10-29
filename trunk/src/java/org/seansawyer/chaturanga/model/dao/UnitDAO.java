@@ -8,6 +8,8 @@
  */
 package org.seansawyer.chaturanga.model.dao;
 
+import org.seansawyer.chaturanga.model.dom.Unit;
+
 /**
  * Interface describing data access methods for persisted {@link Unit} domain objects
  * 
@@ -15,7 +17,7 @@ package org.seansawyer.chaturanga.model.dao;
  * @version $Id$
  * @since   0.1
  */
-public interface UnitDAO extends BaseDAO
+public interface UnitDAO extends BaseDAO<Unit>
 {
 
 }

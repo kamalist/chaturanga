@@ -17,7 +17,7 @@ import org.testng.annotations.BeforeClass;
  * @version $Id: $
  * @since   0.1
  */
-public abstract class ChaturangaTestCase
+public abstract class ChaturangaUnitTestCase
 {    
     /**
      * Invoked before the test class is instantiated; override this method to set up

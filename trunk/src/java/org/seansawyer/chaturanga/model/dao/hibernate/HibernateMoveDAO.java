@@ -8,10 +8,13 @@
  */
 package org.seansawyer.chaturanga.model.dao.hibernate;
 
+import java.util.List;
+
 import org.seansawyer.chaturanga.model.dao.MoveDAO;
-import org.seansawyer.chaturanga.model.dom.BaseDomainObject;
+import org.seansawyer.chaturanga.model.dom.Move;
 
 /**
+ * Implementation of {@link MoveDAO} using Hibernate
  * 
  * @author  Sean Sawyer
  * @version $Id: $
@@ -23,37 +26,36 @@ public class HibernateMoveDAO extends HibernateBaseDAO implements MoveDAO
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#delete(java.lang.String)
      */
-    public void delete(String id) throws Exception
+    public void delete(Long id) throws Exception
     {
-        // TODO Auto-generated method stub
-
+        Move toDelete = new Move();
+        toDelete.setId(id);
+        getHibernateTemplate().delete(toDelete);
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#get(java.lang.String)
      */
-    public BaseDomainObject get(String id)
+    public Move get(Long id)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return (Move) getHibernateTemplate().load(Move.class, id);
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#getAll()
      */
-    public BaseDomainObject getAll()
+    @SuppressWarnings("unchecked")
+    public List<Move> getAll()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return (List<Move>) getHibernateTemplate().find("from Move");
     }
 
     /* (non-Javadoc)
      * @see org.seansawyer.chaturanga.model.dao.BaseDAO#save(org.seansawyer.chaturanga.model.dom.BaseDomainObject)
      */
-    public void save(BaseDomainObject cdo) throws Exception
+    public void save(Move cdo) throws Exception
     {
-        // TODO Auto-generated method stub
-
+        getHibernateTemplate().saveOrUpdate(cdo);
     }
 
 }
