@@ -4,8 +4,8 @@
 CREATE TABLE ch_game (
 	id INT NOT NULL DEFAULT 0 PRIMARY KEY,
 	checkmate TINYINT(1) NOT NULL DEFAULT 1,
-    startDate INT,
-    endDate INT, 
+    startDate BIGINT(20),
+    endDate BIGINT(20), 
     tagline VARCHAR(255),
     winner INT,
     toMove INT,
@@ -22,7 +22,7 @@ CREATE TABLE ch_move (
     startY INT,
     endX INT,
     endY,
-    date LONG NOT NULL DEFAULT 0,
+    date BIGINT(20) NOT NULL DEFAULT 0,
     comment TEXT,
     color INT,
     game INT NOT NULL FOREIGN KEY,
@@ -38,7 +38,7 @@ CREATE TABLE ch_player (
     fullName VARCHAR(255);
     password VARCHAR(32);
     enabled TINYINT(1) NOT NULL DEFAULT 1;
-    dateCreated LONG NOT NULL DEFAULT 0
+    dateCreated BIGINT(20) NOT NULL DEFAULT 0
 );
 
 -- Unit
