@@ -52,7 +52,7 @@ public class ChaturangaController implements Controller
      * 
      * @return a {@link Map} of model information, keyed by {@link String}
      */
-    protected Map buildModelMap()
+    protected Map<String, Object> buildModelMap()
     {
         //TODO move this logic to a package of model map builders keyed on the view name
         String now = (new java.util.Date()).toString();
