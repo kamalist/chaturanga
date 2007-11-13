@@ -1,6 +1,21 @@
+*********************
+* CHATURANGA README *
+* Version 0.1       *
+* 11 November 2007  *
+*********************
 
-ABOUT THIS PROJECT
-------------------
+Visit the project webpages at http://code.google.com/p/chaturanga
+
+0. TABLE OF CONTENTS
+--------------------
+1. About This Project
+2. Licensing
+3. Requirements
+4. Recommendations
+5. Installation
+
+1. ABOUT THIS PROJECT
+---------------------
 Chaturanga is an open-source chess server that leverages a highly-decoupled MVC architecture to provide
 support for a number of clients (telnet and web browser to start, with more to follow) as well as support
 for XML-RPC in order to facilitate quick development of new client applications.
@@ -8,11 +23,52 @@ for XML-RPC in order to facilitate quick development of new client applications.
 Chaturanga also provides email notifications, per-user RSS feeds and a framework for implementing custom
 notification modules which make it easy to create bots.
 
-Please visit the project website at http://code.google.com/p/chaturanga/ for more information and access
-to our Subversion repository.
+To learn more or become involved by contributing to this project, please visit the project website at
+http://code.google.com/p/chaturanga/ for more information and access to our Subversion repository.
 
-
-LICENSING
----------
+2. LICENSING
+------------
 Chaturanga is licensed under v3 of the GNU Public License. More information about this license can be
 found on the GNU Project's website at http://www.gnu.org/copyleft/gpl.html
+
+3. REQUIREMENTS
+---------------
+To run Chaturanga, you will need Tomcat 5.5.x or greater and MySQL 5.0.x or greater.
+
+4. RECOMMENDATIONS
+------------------
+Empty
+
+5. INSTALLATION
+---------------
+While installation procedures for this software will always be slightly different depending upon the
+peculiarities of your Tomcat and MySQL instances and the manner in which you prefer to administer them,
+the following steps should work for default Tomcat and MySQL installs on Linux.
+
+	1. Create the database that Chaturanga will use to persist data:
+		
+		mysqladmin -u root -p create chaturanga
+		
+	2. Set the proper encoding on the newly created database (using the MySQL command-line client):
+	
+		mysql> alter database `chaturanga` default character set utf8 collate utf8_unicode_ci;
+		
+	3. Run the included SQL query batch (create_tables.sql) to create the table structure:
+	
+		mysql -u root -p default-character-set=utf8 chaturanga < create_tables.sql
+		
+	4. (Optional) Build the application from source if necessary (this is not necessary unless you are
+		planning on modifying the application's source code):
+		
+		ant clean dist
+		
+	5. Modify server.xml as follows:
+	
+	6. Modify content.xml to set up your datasource:
+		
+	7. Deploy the Chaturanga WAR file (found in the dist directory) to your Tomcat webapps directory:
+	
+		cp chaturanga.war ${TOMCAT_HOME}/webapps 
+	
+	8. Start/restart your Tomcat instance and point your browser to http://hostname:port/chaturanga
+		Provided that you see the welcome/login page staring back at you, you have a successful install.
